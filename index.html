@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/battleship.js"></script>
+		<script type="text/javascript">
+			function cleanUp(){
+				document.getElementById('mDimension').value = '';
+				document.getElementById('nShips').value = '';
+			}
+			function startGame(){
+				createMatrixes(document.getElementById('mDimension').value);
+				loadShips();
+			}
+		</script>
+	</head>
+	<table id='setting'>
+		<tr>
+			<td> Enter the matrix dimension </td>
+			<td> <input type="text" id="mDimension" required> </td>
+		</tr>
+		<tr>
+			<td> Enter the number of ships </td>
+			<td> <input type="text" id="nShips" required> </td>
+		</tr>
+		<tr>
+			<td> <input type="button" value="Reset" onClick="cleanUp()"> </td>
+			<td> <input type="button" value="Start" onClick="startGame()"> </td>
+		</tr>
+		
+	</table>
+	<body>
+		<table>
+			<tr>
+				<td>
+					<table id="player"></table>
+				</td>
+				<td>
+					<table id="developer"></table>
+				</td>
+			</tr>
+		</table>
+	</body>
+	<table id='shootting'>
+		<tr>
+			<td> Enter the coordinates </td>
+		</tr>
+		<tr>
+			<td> Enter the row </td>
+			<td> <input type="number" id="row" required> </td>
+		</tr>
+		<tr>
+			<td> Enter the column </td>
+			<td> <input type="number" id="column" required> </td>
+		</tr>
+		<tr>
+			<td> <input type="button" value="Shoot" onClick="shot(document.getElementById('row').value,
+											   document.getElementById('column').value)"></td>
+		</tr>
+		
+	</table>
+</html>
