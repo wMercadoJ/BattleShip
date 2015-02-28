@@ -50,7 +50,7 @@ function evaluateLocation(colPosition , rowPosition, direction, shipSize){
     }else{
         for( var j = rowPosition; j < rowPosition + shipSize; j++ ){
             console.log("L"+colPosition+""+j);
-            collision = findInLocation(colPosition, rowPosition);
+            collision = findInLocation(colPosition, j);
             if (collision)
                 break;
         }
