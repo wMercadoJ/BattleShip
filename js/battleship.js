@@ -1,4 +1,5 @@
 var dimension = 0;
+var rowLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 
 /**
@@ -24,6 +25,7 @@ var loadShips = function(){
  */
 var updatePlayerMatrix = function(location){
 	
+
 	if(isShipHit(location)){
 		// writing in the table HIT, and the place that was hit
 		displayMessage(location,'HIT');
@@ -107,24 +109,35 @@ var isFleetDestroyed = function(){
 }
 /**
  * Receives the shot
- * @param {number} row represents the row in the matrix
- * @param {number} column represents the row in the matrix
+ * @param {location} row represents the row in the matrix
+ * 
  */
-var shot=function(row,column){
-	if(validShot(row,column)){
-		updatePlayerMatrix(''+row+column);
+var shot=function(location){
+
+	if(validShot(location)){
+		updatePlayerMatrix(parseLocation(location));
 	}
 
 }
 
 /**
  * Verifies if the shot is inside of the matrix
- * @param {number} row represents the row in the matrix
- * @param {number} column represents the row in the matrix
+ * @param {string} represents the location in the matrix
  * @return {Boolean} 
  */
-var validShot = function(row,column){
+var validShot = function(location){
+	var row = parseInt(rowLetters.indexOf(location.charAt(0)))+1;
+	var column = parseInt(location.charAt(1));
+
+	console.log(row +' '+ column);
 	return (row>0 && column>0)&&(row<dimension && column<dimension);
+}
+
+var parseLocation =function(location){
+	var row = parseInt(rowLetters.indexOf(location.charAt(0)))+1;
+	var column = parseInt(location.charAt(1));
+
+	return row+''+column;
 }
 
 /**
@@ -139,11 +152,14 @@ var createPlayerMatrix = function(dimension){
 		var col='';
 		var background = 'player';
 		for(var j=0;j<dimension;j++){
-			if(i==0){
+			if(i==0 && j==0){
+				background = '';
+			}
+			else if(i==0){
 				background = j;
 			}
 			else if (j==0){
-				background = i;
+				background = rowLetters.charAt(i-1);
 			}
 			else{
 				background = 'developer'	
@@ -187,6 +203,8 @@ var createDeveloperMatrix = function(dimension){
 	}
 	document.getElementById('developer').innerHTML=htmlMatrix;
 };
+
+
 
 
 

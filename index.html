@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="js/battleship.js"></script>
 		<script src="js/battleshipLocation.js"></script>
+		<script src="js/game.js"></script>
+		<script src="js/ship.js"></script>
+		<script src="js/field.js"></script>
+		<script src="js/main.js"></script>
 		<script type="text/javascript">
 			function cleanUp(){
 				document.getElementById('mDimension').value = '';
 				document.getElementById('nShips').value = '';
 			}
-			function startGame(){
-				createMatrixes(document.getElementById('mDimension').value);
-				loadShips();
+			function start(){
+				startGame(document.getElementById('mDimension').value,0,0,0);
 			}
 		</script>
 	</head>
-	<table id='setting'>
-		<tr>
-			<td> Enter the matrix dimension </td>
-			<td> <input type="text" id="mDimension" required> </td>
-		</tr>
-		<tr>
-			<td> Enter the number of ships </td>
-			<td> <input type="text" id="nShips" required> </td>
-		</tr>
-		<tr>
-			<td> <input type="button" value="Reset" onClick="cleanUp()"> </td>
-			<td> <input type="button" value="Start" onClick="startGame()"> </td>
-		</tr>
-		
-	</table>
+	
 	<body>
+		<table id='setting'>
+			<tr>
+				<td> Enter the matrix dimension </td>
+				<td> <input type="number" id="mDimension" min="2" required> </td>
+			</tr>
+			<tr>
+				<td> Enter the number of destroyers </td>
+				<td> <input type="number" id="nDestroyers" min="0" required> </td>
+			</tr>
+			<tr>
+				<td> Enter the number of ships </td>
+				<td> <input type="number" id="nShips" min="0" required> </td>
+			</tr>
+			<tr>
+				<td> Enter the number of tugboat </td>
+				<td> <input type="number" id="nTugboats" min="0" required> </td>
+			</tr>
+			<tr>
+				<td> <input type="button" value="Reset" onClick="cleanUp()"> </td>
+				<td> <input type="button" value="Start" onClick="start()"> </td>
+			</tr>
+		
+		</table>
 		<table>
 			<tr>
 				<td>
@@ -44,19 +55,10 @@
 	<table id='shootting'>
 		<tr>
 			<td> Enter the coordinates </td>
+			<td> <input type="text" id="location" required> </td>
 		</tr>
 		<tr>
-			<td> Enter the row </td>
-			<td> <input type="number" id="row" required> </td>
+			<td> <input type="button" value="shoot" onClick="battleShip.shot(document.getElementById('location').value)"></td>
 		</tr>
-		<tr>
-			<td> Enter the column </td>
-			<td> <input type="number" id="column" required> </td>
-		</tr>
-		<tr>
-			<td> <input type="button" value="Shoot" onClick="shot(document.getElementById('row').value,
-											                      document.getElementById('column').value)"></td>
-		</tr>
-		
 	</table>
 </html>
