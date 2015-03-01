@@ -72,19 +72,25 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	};
 
 	this.receivedShot = function(location){
-		if(this.isAnyShipHit(location)){
-			// writing in the table HIT, and the place that was hit
-			this.displayMessage(location,'HIT');
-			
-			if(this.isShipDestroyed(location)){
-				//writing destroyed and then displaying the ship
-				//this.displayShipDestroyedBoard(location);
+		var ship = this._getShip(location);
 
-				if(this.isFleetDestroyed()){
+		if(ship){
+		
+			if(ship.isDestroyed()){
+				//writing destroyed and then displaying the ship
+				this._displayShipDestroyed(ship);
+
+				if(this._isFleetDestroyed()){
 					//Showing a message that all the fleet have been destroyed
 					//this.displayFleetDestroyed();
 				}
 			}
+			else {
+				// writing in the table HIT, and the place that was hit
+				this.displayMessage(location,'HIT');
+				
+			}
+
 		}
 		else{
 			//writing in the table Fail
@@ -98,33 +104,28 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		}
 	};
 
-	/**
-	 * Verifies if the ship has been hit
-	 * @param {string} location indicates the position in the matrix
-	 * @return {boolean} notifying if the ship has been hit or not
-	 */
-	this.isAnyShipHit = function(location){
-		
-
-		return true;
-	};
-
-	/**
-	 * Verifies if the ship has been destroyed
-	 * @param {column} indicates the column in the matrix
-	 * 
-	 * @return {boolean} notifying if the ship has been destroyed
-	 */
-	this.isShipDestroyed = function(location){
-		return true;
-	};
-
-	this.isFleetDestroyed = function(){
+	
+	
+	this._isFleetDestroyed = function(){
 		return true;
 	};
 
 	this.getRowsMap = function(){
 		return this._rowsMap;
+	};
+
+	this._getShip = function(location){
+		var nShips = this._ships.length;
+		var ship = null;
+
+		for (var i = 0; i < nShips; i++) {
+			ship = this._ships[i];
+
+			if(ship.isHit()){
+				return ship;
+			}
+		}
+		return ship;
 	};
 
 	/**
@@ -136,6 +137,24 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		var cell = document.getElementById(location);
 		cell.innerHTML = message;
 	}
+
+	/**
+	 * Verifies if the ship has been destroyed
+	 * @param {column} indicates the column in the matrix
+	 * 
+	 */
+	this._displayShipDestroyed = function(ship){
+		var shipLocation = ship.location;
+
+		for(var i=0;i<shipLocation.length;i++){
+			var cell = document.getElementById(shipLocation[i]);	
+			cell.innerHTML = 'KILL';
+		}
+
+		
+		
+	};
+
 
 
 };
