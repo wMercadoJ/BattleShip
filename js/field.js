@@ -5,11 +5,13 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.nDestroyers = nDestroyers;
 	this.nShips = nShips;
 	this.nTugBoats = nTugBoats;
+	this._ships=[];
 	this._rowsMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	this.drawField = function(){
 		this._drawHTML();
 		this._drawConsole();
+		this._initAllShips();
 
 	};
 
@@ -43,31 +45,55 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		document.getElementById('player').innerHTML=htmlMatrix;
 	};
 
-	this._drawConsole = function(){};
+	this._drawConsole = function(){
+
+	};
+
+	this._initAllShips = function(){
+		if(this.nDestroyers>0){
+			this._initShips(this.nDestroyers,'D');
+		}
+
+		if(this.nShips>0){
+			this._initShips(this.nShips,'S');
+		}
+
+		if(this.nTugBoats>0){
+			this._initShips(this.nTugBoats,'T');
+		}
+
+	};
+
+	this._initShips = function(ships,type){
+		for (var i = 0; i < ships; i++) {
+			this._ships.push(new Ship(type+(i+1)));
+		}
+
+	};
 
 	this.receivedShot = function(location){
-		if(this.isShipHit(location)){
+		if(this.isAnyShipHit(location)){
 			// writing in the table HIT, and the place that was hit
 			this.displayMessage(location,'HIT');
 			
 			if(this.isShipDestroyed(location)){
 				//writing destroyed and then displaying the ship
-				this.displayShipDestroyedBoard(location);
+				//this.displayShipDestroyedBoard(location);
 
 				if(this.isFleetDestroyed()){
 					//Showing a message that all the fleet have been destroyed
-					this.displayFleetDestroyed();
+					//this.displayFleetDestroyed();
 				}
 			}
 		}
 		else{
 			//writing in the table Fail
 			this.displayMessage(location,'FAIL');
-			// Verifying if there is still empty spaces not hit
+			/*// Verifying if there is still empty spaces not hit
 			if(!this.isAllMissedShotHit()){
 				//The player loose because there is no empty spaces
 				// TODO
-			}
+			}*/
 
 		}
 	};
@@ -77,8 +103,9 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 * @param {string} location indicates the position in the matrix
 	 * @return {boolean} notifying if the ship has been hit or not
 	 */
-	this.isShipHit = function(location){
-		console.log(location);
+	this.isAnyShipHit = function(location){
+		
+
 		return true;
 	};
 

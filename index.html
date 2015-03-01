@@ -12,7 +12,10 @@
 				document.getElementById('nShips').value = '';
 			}
 			function start(){
-				startGame(document.getElementById('mDimension').value,0,0,0);
+				startGame(document.getElementById('mDimension').value,
+						  document.getElementById('nDestroyers').value,
+						  document.getElementById('nShips').value,
+						  document.getElementById('nTugboats').value);
 			}
 		</script>
 	</head>
