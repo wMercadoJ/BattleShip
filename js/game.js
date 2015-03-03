@@ -18,13 +18,13 @@ var Game = function(){
 		}
 	};
 
-	
 	this.isValidShot = function(location){
-		var row = parseInt(this.field.getRowsMap().indexOf(location.charAt(0)))+1;
-		var column = parseInt(location.charAt(1));
-
+    location.split('');
+    var row = location[0];
+    var column = location[1];
 		console.log(row +' '+ column);
-		return (row>0 && column>0)&&(row<this.field.dimension && column<this.field.dimension);
+    console.log((row +'<'+ this.field.dimension +'&&'+ column +'<'+ this.field.dimension));
+		//return (row > 0 && column > 0) && (row < this.field.dimension && column < this.field.dimension);
 
 	};
 
@@ -34,4 +34,4 @@ var Game = function(){
 
 		return row+''+column;
 	};
-}
+};
