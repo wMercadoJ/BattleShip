@@ -21,7 +21,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		for(var i=0;i<this.dimension;i++){
 			var row='<tr>\n';
 			var col='';
-			var background = 'player';
+			var background = '<img src="images\\background.png">';
 			for(var j=0;j<this.dimension;j++){
 				if(i==0 && j==0){
 					background = '';
@@ -33,7 +33,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 					background = this._rowsMap.charAt(i-1);
 				}
 				else{
-					background = 'player'	
+					background = '<img src="images\\background.png">';	
 				}
 
 
@@ -144,14 +144,41 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 * 
 	 */
 	this._displayShipDestroyed = function(ship){
-		var shipLocation = ship.location;
+		var shipID = ship.id;
+		var shipLocation = ship.locationShip;
+		var shipDirection = ship.direction;
+		var shipSize = ship.locationShip.length;
+		var cell = null;
 
-		for(var i=0;i<shipLocation.length;i++){
-			var cell = document.getElementById(shipLocation[i]);	
-			cell.innerHTML = 'KILL';
+		//verifying if it is a tugboat
+		if(shipID.charAt(0)=='T'){
+			cell = document.getElementById(shipLocation[0]);	
+			cell.innerHTML = '<img src="images\\tugBoat.png">';
+			cell.setAttribute('class',shipDirection);	
 		}
-
+		else if(shipID.charAt(0)=='S'){
+			cell = document.getElementById(shipLocation[0]);	
+			cell.innerHTML = '<img src="images\\ship.png">';
+			cell.setAttribute('class',shipDirection);		
+		}
+		else{
 		
+			// the front
+			cell = document.getElementById(shipLocation[0]);
+			cell.innerHTML = '<img src="images\\shipFront.png">';
+			cell.setAttribute('class',shipDirection);
+			// the middle
+			for(var i=1;i<shipLocation.length-1;i++){
+				cell = document.getElementById(shipLocation[i]);
+				cell.innerHTML = '<img src="images\\shipMiddle.png">';
+				cell.setAttribute('class',shipDirection);
+			}
+		
+			//the ship back
+			cell = document.getElementById(shipLocation[shipLocation.length-1]);
+			cell.innerHTML = '<img src="images\\shipBack.png">';
+			cell.setAttribute('class',shipDirection);
+		}
 		
 	};
 
