@@ -1,4 +1,37 @@
 
+#body {
+    background-color: ghostwhite;
+}
+
+#header {
+    background-image: url("../images/banner-javascript.jpg");
+    color:orangered;
+    text-align:left;
+    padding:5px;
+    height:100px;
+    width:540px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:180px;
+    width:280px;
+    float:left;
+    padding:5px;
+}
+#section {
+    width:600px;
+    float:left;
+    padding:10px;
+}
+#footer {
+    background-color:orangered;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;
+}
+
 .player{
 	border-spacing: 0px
 	

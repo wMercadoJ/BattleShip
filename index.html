@@ -4,7 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="css/battleShip.css">
 
 		<script src="js/ship.js"></script>
-		<script src="js/locationhandler.js"></script>
+		<script src="js/locationshiphandler.js"></script>
 		<script src="js/field.js"></script>
 		<script src="js/game.js"></script>
 		<script src="js/main.js"></script>
@@ -23,31 +23,39 @@
 			}
 		</script>
 	</head>
-	
+
 	<body>
+	<div id="header">
+		<h1>BattleShip</h1>
+	</div>
+
+	<div id="nav">
 		<table id='setting'>
 			<tr>
 				<td> Enter the matrix dimension </td>
-				<td> <input type="number" id="mDimension" min="3" value="3" required> </td>
+				<td> <input type="number" id="mDimension" min="3" value="3" style="width: 35px" required> </td>
 			</tr>
 			<tr>
 				<td> Enter the number of destroyers </td>
-				<td> <input type="number" id="nDestroyers" min="0" value="0" required> </td>
+				<td> <input type="number" id="nDestroyers" min="0" value="0" style="width: 35px" required> </td>
 			</tr>
 			<tr>
 				<td> Enter the number of ships </td>
-				<td> <input type="number" id="nShips" min="0" value="0" required> </td>
+				<td> <input type="number" id="nShips" min="0" value="0" style="width: 35px" required> </td>
 			</tr>
 			<tr>
 				<td> Enter the number of tugboat </td>
-				<td> <input type="number" id="nTugboats" min="0" value="0" required> </td>
+				<td> <input type="number" id="nTugboats" min="0" value="0" style="width: 35px"required> </td>
 			</tr>
 			<tr>
 				<td> <input type="button" value="Reset" onClick="cleanUp()"> </td>
 				<td> <input type="button" value="Start" onClick="start()"> </td>
 			</tr>
-		
+
 		</table>
+	</div>
+
+	<div id="section">
 		<table>
 			<tr>
 				<td>
@@ -58,14 +66,23 @@
 				</td>
 			</tr>
 		</table>
+
+		<table id='shootting'>
+			<tr>
+				<td> Enter the coordinates </td>
+				<td> <input type="text" id="location" required> </td>
+			</tr>
+			<tr>
+				<td> <input type="button" value="shoot" onClick="battleShip.shot(document.getElementById('location').value)"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="footer">
+		Copyright © Jimmy Vargas - Joel Rodriguez - Walter Mercado - Jalasoft.com
+	</div>
+
+
 	</body>
-	<table id='shootting'>
-		<tr>
-			<td> Enter the coordinates </td>
-			<td> <input type="text" id="location" required> </td>
-		</tr>
-		<tr>
-			<td> <input type="button" value="shoot" onClick="battleShip.shot(document.getElementById('location').value)"></td>
-		</tr>
-	</table>
+
 </html>
