@@ -94,13 +94,9 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		for(var i=0;i<this._ships.length;i++){
 			var id = this._ships[i].id;
 			var location = this._ships[i].locationShip;
-			for(var k = 0; k < location.length; k++){
-				//console.log(typeof location[k].slice(0,1));
-				console.log('location'+location + 'id' +id);
+			for(var k = 0; k < location.length; k++){				
 				var rowCoordinate = parseInt(this.locationShipHandler.globalRow.indexOf(location[k].slice(0,1)));
-				var colCoordinate = parseInt(location[k].slice(1,location[k].length))-1;
-
-				console.log('r ' + rowCoordinate + 'c ' + colCoordinate);
+				var colCoordinate = parseInt(location[k].slice(1,location[k].length))-1;				
 				this._devConsole[rowCoordinate][colCoordinate]= id;
 			}
 		}
@@ -153,7 +149,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		if(this.nTugBoats>0){
 			this._initShips(this.nTugBoats,'T', 1);
 		}
-		
+		console.log(this._ships);
 
 	};
 
@@ -177,7 +173,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 				break;
 			}
 		}
-		console.log(this._ships);
+		
 
 	};
 
