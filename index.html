@@ -9,8 +9,10 @@
 		<script src="js/main.js"></script>
 		<script type="text/javascript">
 			function cleanUp(){
-				document.getElementById('mDimension').value = '';
-				document.getElementById('nShips').value = '';
+				document.getElementById('mDimension').value = '3';
+				document.getElementById('nDestroyers').value = '0';
+				document.getElementById('nShips').value = '0';
+				document.getElementById('nTugboats').value = '0';
 			}
 			function start(){
 				startGame(document.getElementById('mDimension').value,
@@ -25,19 +27,19 @@
 		<table id='setting'>
 			<tr>
 				<td> Enter the matrix dimension </td>
-				<td> <input type="number" id="mDimension" min="2" required> </td>
+				<td> <input type="number" id="mDimension" min="3" value="3" required> </td>
 			</tr>
 			<tr>
 				<td> Enter the number of destroyers </td>
-				<td> <input type="number" id="nDestroyers" min="0" required> </td>
+				<td> <input type="number" id="nDestroyers" min="0" value="0" required> </td>
 			</tr>
 			<tr>
 				<td> Enter the number of ships </td>
-				<td> <input type="number" id="nShips" min="0" required> </td>
+				<td> <input type="number" id="nShips" min="0" value="0" required> </td>
 			</tr>
 			<tr>
 				<td> Enter the number of tugboat </td>
-				<td> <input type="number" id="nTugboats" min="0" required> </td>
+				<td> <input type="number" id="nTugboats" min="0" value="0" required> </td>
 			</tr>
 			<tr>
 				<td> <input type="button" value="Reset" onClick="cleanUp()"> </td>
