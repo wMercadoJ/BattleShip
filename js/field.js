@@ -1,21 +1,50 @@
-
-
+/**
+* Dimension of the field
+* @type {number} dimension
+* @type {number} nDestroyers number of destroyers in the field
+* @type {number} nShips number of ships in the field
+* @type {number} nTugBoats number of tugBoats in the field
+* @constructor
+*/
 var Field = function(dimension,nDestroyers,nShips,nTugBoats){
+	
+  
 	this.dimension = dimension +1;
 	this.nDestroyers = nDestroyers;
 	this.nShips = nShips;
 	this.nTugBoats = nTugBoats;
+	/**
+	 * Array of ships
+     * @type {array} 
+	 */
 	this._ships=[];
+	/**
+	 * String that contains the rows
+     * @type {string} 
+     */
 	this._rowsMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+	/**
+	 * Matrix that will be always drawn in the console
+	 */
+	this._devConsole = [[]];
 
+	
+
+	/**
+	 * Draws the field in the html and in console
+	 */
 	this.drawField = function(){
+		this._initAllShips();
+		this._initDevConsole();
 		this._drawHTML();
 		this._drawConsole();
-		this._initAllShips();
 
 	};
 
+	/**
+	 * Draws the fields in the html
+	 */
 	this._drawHTML = function(){
 		
 		var htmlMatrix = '';
@@ -46,14 +75,16 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		document.getElementById('player').innerHTML=htmlMatrix;
 	};
 
-	this._drawConsole = function(){
-		var drawDevConsole = [];
+	/**
+	 * Initiates the dev console that will be displayed in the console
+	 */
+	this._initDevConsole = function(){
 		for (var i = 0; i < this.dimension -1; i++) {
 			var drawColumn = [];
 			for (var j = 0; j < this.dimension -1; j++) {
 				drawColumn.push("00")
 			}
-			drawDevConsole.push(drawColumn);
+			this._devConsole.push(drawColumn);
 		}
 		this._ships.forEach(function (object) {
 			for (var name in object) {
@@ -65,15 +96,22 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 						console.log(typeof value[k].slice(0,1));
 						var rowCoordinate = globalRow.indexOf(value[k].slice(0,1));
 						var colCoordinate = parseInt(value[k].slice(1,value[k].length))-1;
-						drawDevConsole[rowCoordinate][colCoordinate]= identifier;
+						this._devConsole[rowCoordinate][colCoordinate]= identifier;
 					}
 				}
 			}
 		});
+		
+	};
+	/**
+     * Draws the game in the console
+	 */
+	this._drawConsole = function(){
+		
 		var text = "\n"
 		for (var i = 0; i < this.dimension -1; i++) {
 			for (var j = 0; j < this.dimension -1; j++) {
-				text = text + drawDevConsole[i][j] + " "
+				text = text + this._devConsole[i][j] + " ";
 			}
 			text = text + "\n";
 		}
@@ -93,7 +131,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		if(this.nTugBoats>0){
 			this._initShips(this.nTugBoats,'T', 1);
 		}
-		this._drawConsole();
+		
 
 	};
 
@@ -120,6 +158,10 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 
 	};
 
+	/**
+	 * Receives the shot and verifies if it has hit, fail or detroyed a ship
+	 * @param{string} location
+	 */
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
 
@@ -137,6 +179,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			else {
 				// writing in the table HIT, and the place that was hit
 				this.displayMessage(location,'HIT');
+				this._devConsole[parseInt(location.charAt(0))][parseInt(location.charAt(1))] = 'H';
 				
 			}
 
@@ -144,6 +187,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		else{
 			//writing in the table Fail
 			this.displayMessage(location,'FAIL');
+			this._devConsole[parseInt(location.charAt(0))][parseInt(location.charAt(1))] = 'F';
 			/*// Verifying if there is still empty spaces not hit
 			if(!this.isAllMissedShotHit()){
 				//The player loose because there is no empty spaces
@@ -151,6 +195,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			}*/
 
 		}
+		this._drawConsole();
 	};
 
 	
@@ -185,12 +230,13 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.displayMessage = function(location,message){
 		var cell = document.getElementById(location);
 		cell.innerHTML = message;
+		cell.setAttribute('class',message);
 	}
 
 	/**
-	 * Verifies if the ship has been destroyed
-	 * @param {column} indicates the column in the matrix
-	 * 
+	 * Displays the ship in the html
+	 * @param {project.Ship} obj instance of Ship that will be displayed in the html, if it is tugboat it 
+	 * 	occupies just one space, ship occupies two and destroyer three
 	 */
 	this._displayShipDestroyed = function(ship){
 		var shipID = ship.id;
@@ -205,18 +251,13 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			cell.innerHTML = '<img src="images\\tugBoat.png">';
 			cell.setAttribute('class',shipDirection);	
 		}
-		else if(shipID.charAt(0)=='S'){
-			cell = document.getElementById(shipLocation[0]);	
-			cell.innerHTML = '<img src="images\\ship.png">';
-			cell.setAttribute('class',shipDirection);		
-		}
 		else{
 		
 			// the front
 			cell = document.getElementById(shipLocation[0]);
 			cell.innerHTML = '<img src="images\\shipFront.png">';
 			cell.setAttribute('class',shipDirection);
-			// the middle
+			// the middle in case the ship it is a detroyer
 			for(var i=1;i<shipLocation.length-1;i++){
 				cell = document.getElementById(shipLocation[i]);
 				cell.innerHTML = '<img src="images\\shipMiddle.png">';
