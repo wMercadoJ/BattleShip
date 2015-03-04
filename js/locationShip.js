@@ -68,7 +68,7 @@ var LocationShipHandler =function(){
 
         if (collision || this.tryLocateShip >= 100){
 
-            return this.getNewLocation(dimensionField,ships, directionShip, shipSize);
+            return this.getNewLocation(this.dimensionField,this.ships, directionShip, shipSize);
         }else{
             this.tryLocateShip = 0;
 
@@ -85,8 +85,8 @@ var LocationShipHandler =function(){
      */
     this.addShip = function (id, position, direction, shipSize){
         var ship = new Ship(id, position, direction, shipSize);
-        ships.push(ship);
-    	console.log(ships)
+        this.ships.push(ship);
+    	console.log(this.ships)
     };
     /**
      * Function to evaluate if the coordinate is empty or occupied
