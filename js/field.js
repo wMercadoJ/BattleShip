@@ -86,7 +86,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		for (var i = 0; i < this.dimension -1; i++) {
 			var drawColumn = [];
 			for (var j = 0; j < this.dimension -1; j++) {
-				drawColumn.push("00")
+				drawColumn.push("--")
 			}
 			this._devConsole.push(drawColumn);
 		}
