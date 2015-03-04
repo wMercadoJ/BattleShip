@@ -90,21 +90,39 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			}
 			this._devConsole.push(drawColumn);
 		}
-		this._ships.forEach(function (object) {
-			for (var name in object) {
+		
+		for(var i=0;i<this._ships.length;i++){
+			var id = this._ships[i].id;
+			var location = this._ships[i].locationShip;
+			for(var k = 0; k < location.length; k++){
+				//console.log(typeof location[k].slice(0,1));
+				console.log('location'+location + 'id' +id);
+				var rowCoordinate = parseInt(this.locationShipHandler.globalRow.indexOf(location[k].slice(0,1)));
+				var colCoordinate = parseInt(location[k].slice(1,location[k].length))-1;
+
+				console.log('r ' + rowCoordinate + 'c ' + colCoordinate);
+				this._devConsole[rowCoordinate][colCoordinate]= id;
+			}
+		}
+		/*
+		this._ships.forEach(function (ship) {
+			for (var name in ship) {
 				if (name == 'id')
-					var identifier = object[name];
+					var identifier = ship[name];
 				if (name == 'locationShip') {
-					var value = object[name];
+					var value = ship[name];
 					for(var k = 0; k < value.length; k++){
 						console.log(typeof value[k].slice(0,1));
-						var rowCoordinate = this.locationShipHandler.globalRow.indexOf(value[k].slice(0,1));
+						var locationShipHandler = new LocationShipHandler();
+						var rowCoordinate = locationShipHandler.globalRow.indexOf(value[k].slice(0,1));
 						var colCoordinate = parseInt(value[k].slice(1,value[k].length))-1;
 						this._devConsole[rowCoordinate][colCoordinate]= identifier;
 					}
 				}
 			}
-		});
+		});*/
+
+		
 		
 	};
 	/**
