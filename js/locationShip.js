@@ -1,6 +1,5 @@
-var size = 5;
+var dimensionField = 0;
 var globalRow = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var direction = 'LANDSCAPE';
 var ships = [];
 var tryLocateShip = 0 ;
 
@@ -9,24 +8,28 @@ var tryLocateShip = 0 ;
  * @param {String} id, Identifier of the ship
  * @param {Integer} shipSize, Size of the new ship
  */
-function getNewLocation(id, shipSize){
+function getNewLocation(dimension, shipMatrix,  directionShip, shipSize){
+    dimensionField = dimension;
+    ships = shipMatrix;
+
     do {
         tryLocateShip++;
-        var rowPosition  = globalRow.charAt(Math.floor(Math.random() * size));
-        var colPosition = parseInt(Math.random() * size);
-        var directionShip = parseInt(Math.random() * 3);
-        if(directionShip == 2)
-            direction = 'PORTRAIT';
+
+        var rowPosition  = globalRow.charAt(Math.floor(Math.random() * (dimensionField-1)));
+        var colPosition = parseInt(Math.random() * dimensionField-1)+1;
+
 
         // Conditional statement to avoid infinite loop to get an empty location
-        if (tryLocateShip > 50 ){
+        if (tryLocateShip > 500 ){
             tryLocateShip = 0;
-            console.log("Unable to add more ships, try again!");
-            return;
+
+            return 0;
         }
+
     }
     while (evaluateLocation(rowPosition, colPosition));
-    evaluateColision(id, rowPosition, colPosition, direction, shipSize);
+
+    return evaluateColision(rowPosition, colPosition, directionShip, shipSize);
 }
 
 /**
@@ -37,31 +40,38 @@ function getNewLocation(id, shipSize){
  * @param {String} direction, Direction of the ship to be evaluated
  * @param {Integer} shipSize, Size of the sip to be evaluated
  */
-function evaluateColision(id, rowPosition, colPosition, direction, shipSize){
+function evaluateColision(rowPosition, colPosition, directionShip, shipSize){
     var indexRow = globalRow.indexOf(rowPosition);
     var collision = false;
     var position = [];
-    if (direction == 'PORTRAIT'){
+    if (directionShip == 'PORTRAIT'){
         for (var i = indexRow; i < indexRow + shipSize; i++){
             position.push(globalRow.charAt(i).concat(colPosition));
+
             collision = evaluateLocation(globalRow.charAt(i), colPosition);
+
             if (collision)
                 break;
         }
     }else{
-        for (var j = rowPosition; j < rowPosition + shipSize; j++){
+        for (var j = colPosition; j < colPosition + shipSize; j++){
             position.push(rowPosition.concat(j));
+
             collision = evaluateLocation(rowPosition, j);
+            console.log(collision);
             if (collision)
                 break;
         }
     }
 
-    if (collision || tryLocateShip <= 20){
-        getNewLocation(id, shipSize);
+    if (collision || tryLocateShip >= 100){
+
+        return getNewLocation(dimensionField,ships, directionShip, shipSize);
     }else{
         tryLocateShip = 0;
-        addShip(id, position, direction, shipSize);
+
+        return position;
+        //addShip(id, position, direction, shipSize);
     }
 }
 /**
@@ -83,11 +93,13 @@ function addShip(id, position, direction, shipSize){
  * @returns {boolean} True or false if the coordinate is empty or occupied
  */
 function evaluateLocation(row, col){
+
     var shipExist = false;
     var position = row.concat(col);
     var indexCol = globalRow.indexOf(row);
     var indexRow = col;
-    if (indexCol >= size || indexRow >= size){
+
+    if (indexCol >= dimensionField || indexRow >= dimensionField){
         shipExist = true;
     }else
     {
@@ -102,5 +114,6 @@ function evaluateLocation(row, col){
             }
         });
     }
+
     return shipExist;
 }

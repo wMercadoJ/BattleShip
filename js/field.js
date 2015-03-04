@@ -8,6 +8,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this._ships=[];
 	this._rowsMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+
 	this.drawField = function(){
 		this._drawHTML();
 		this._drawConsole();
@@ -46,27 +47,75 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	};
 
 	this._drawConsole = function(){
+		var drawDevConsole = [];
+		for (var i = 0; i < this.dimension -1; i++) {
+			var drawColumn = [];
+			for (var j = 0; j < this.dimension -1; j++) {
+				drawColumn.push("00")
+			}
+			drawDevConsole.push(drawColumn);
+		}
+		this._ships.forEach(function (object) {
+			for (var name in object) {
+				if (name == 'id')
+					var identifier = object[name];
+				if (name == 'locationShip') {
+					var value = object[name];
+					for(var k = 0; k < value.length; k++){
+						console.log(typeof value[k].slice(0,1));
+						var rowCoordinate = globalRow.indexOf(value[k].slice(0,1));
+						var colCoordinate = parseInt(value[k].slice(1,value[k].length))-1;
+						drawDevConsole[rowCoordinate][colCoordinate]= identifier;
+					}
+				}
+			}
+		});
+		var text = "\n"
+		for (var i = 0; i < this.dimension -1; i++) {
+			for (var j = 0; j < this.dimension -1; j++) {
+				text = text + drawDevConsole[i][j] + " "
+			}
+			text = text + "\n";
+		}
+		console.log(text);
 
 	};
 
 	this._initAllShips = function(){
 		if(this.nDestroyers>0){
-			this._initShips(this.nDestroyers,'D');
+			this._initShips(this.nDestroyers,'D', 3);
 		}
 
 		if(this.nShips>0){
-			this._initShips(this.nShips,'S');
+			this._initShips(this.nShips,'S', 2);
 		}
 
 		if(this.nTugBoats>0){
-			this._initShips(this.nTugBoats,'T');
+			this._initShips(this.nTugBoats,'T', 1);
 		}
+		this._drawConsole();
 
 	};
 
-	this._initShips = function(ships,type){
+	this._initShips = function(ships,type, sizeShip){
 		for (var i = 0; i < ships; i++) {
-			this._ships.push(new Ship(type+(i+1)));
+			var direction = 'LANDSCAPE';
+			var identifier = type.concat(i+1);
+			var directionShip = parseInt(Math.random() * 2);
+			if(directionShip == 1)
+				direction = 'PORTRAIT';
+
+			var positionCoordinate  = getNewLocation(this.dimension, this._ships, direction, sizeShip);
+
+			if (positionCoordinate != 0) {
+
+				var ship = new Ship(identifier, positionCoordinate, direction, sizeShip);
+				this._ships.push(ship);
+				console.log(this._ships);
+			}else{
+				console.log("Unable to add more ships!");
+				break;
+			}
 		}
 
 	};
