@@ -13,6 +13,8 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.nDestroyers = nDestroyers;
 	this.nShips = nShips;
 	this.nTugBoats = nTugBoats;
+
+
 	/**
 	 * Array of ships
      * @type {array} 
@@ -27,9 +29,9 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	/**
 	 * Matrix that will be always drawn in the console
 	 */
-	this._devConsole = [[]];
+	this._devConsole = [];
 
-	
+	this.locationShipHandler = new LocationShipHandler();
 
 	/**
 	 * Draws the field in the html and in console
@@ -79,6 +81,8 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 * Initiates the dev console that will be displayed in the console
 	 */
 	this._initDevConsole = function(){
+		
+
 		for (var i = 0; i < this.dimension -1; i++) {
 			var drawColumn = [];
 			for (var j = 0; j < this.dimension -1; j++) {
@@ -94,7 +98,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 					var value = object[name];
 					for(var k = 0; k < value.length; k++){
 						console.log(typeof value[k].slice(0,1));
-						var rowCoordinate = globalRow.indexOf(value[k].slice(0,1));
+						var rowCoordinate = this.locationShipHandler.globalRow.indexOf(value[k].slice(0,1));
 						var colCoordinate = parseInt(value[k].slice(1,value[k].length))-1;
 						this._devConsole[rowCoordinate][colCoordinate]= identifier;
 					}
@@ -143,7 +147,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			if(directionShip == 1)
 				direction = 'PORTRAIT';
 
-			var positionCoordinate  = getNewLocation(this.dimension, this._ships, direction, sizeShip);
+			var positionCoordinate  = this.locationShipHandler.getNewLocation(this.dimension, this._ships, direction, sizeShip);
 
 			if (positionCoordinate != 0) {
 
