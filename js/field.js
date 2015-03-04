@@ -171,12 +171,13 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 
 				var ship = new Ship(identifier, positionCoordinate, direction, sizeShip);
 				this._ships.push(ship);
-				console.log(this._ships);
+				
 			}else{
 				console.log("Unable to add more ships!");
 				break;
 			}
 		}
+		console.log(this._ships);
 
 	};
 

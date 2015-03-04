@@ -18,7 +18,7 @@ var LocationShipHandler =function(){
             this.tryLocateShip++;
 
             var rowPosition  = this.globalRow.charAt(Math.floor(Math.random() * (this.dimensionField-1)));
-            var colPosition = parseInt(Math.random() * this.dimensionField-1)+1;
+            var colPosition = parseInt(Math.random() * (this.dimensionField-1))+1;
 
 
             // Conditional statement to avoid infinite loop to get an empty location
@@ -59,8 +59,7 @@ var LocationShipHandler =function(){
             for (var j = colPosition; j < colPosition + shipSize; j++){
                 position.push(rowPosition.concat(j));
 
-                collision = this.evaluateLocation(rowPosition, j);
-                console.log(collision);
+                collision = this.evaluateLocation(rowPosition, j);                
                 if (collision)
                     break;
             }
@@ -71,23 +70,9 @@ var LocationShipHandler =function(){
             return this.getNewLocation(this.dimensionField,this.ships, directionShip, shipSize);
         }else{
             this.tryLocateShip = 0;
-
-            return position;
-            //addShip(id, position, direction, shipSize);
+            return position;            
         }
-    };
-    /**
-     * Function to add a Ship into the Ships array
-     * @param {String} id, Identifier of the new ship
-     * @param {Array} position, Array with coordinates in the field for the new ship
-     * @param {String} direction, Direction of the new ship
-     * @param {Integer} shipSize, Size of the new ship
-     */
-    this.addShip = function (id, position, direction, shipSize){
-        var ship = new Ship(id, position, direction, shipSize);
-        this.ships.push(ship);
-    	console.log(this.ships)
-    };
+    };   
     /**
      * Function to evaluate if the coordinate is empty or occupied
      * @param {String} row, Identifier of the row
@@ -98,10 +83,10 @@ var LocationShipHandler =function(){
 
         var shipExist = false;
         var position = row.concat(col);
-        var indexCol = this.globalRow.indexOf(row);
-        var indexRow = col;
+        var indexRow = this.globalRow.indexOf(row);
+        var indexCol = col;
 
-        if (indexCol >= this.dimensionField || indexRow >= this.dimensionField){
+        if (indexCol >= this.dimensionField || indexRow >= this.dimensionField - 1){
             shipExist = true;
         }else
         {
