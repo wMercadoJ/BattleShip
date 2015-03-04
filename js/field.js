@@ -86,7 +86,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		for (var i = 0; i < this.dimension -1; i++) {
 			var drawColumn = [];
 			for (var j = 0; j < this.dimension -1; j++) {
-				drawColumn.push("--")
+				drawColumn.push("---")
 			}
 			this._devConsole.push(drawColumn);
 		}
@@ -156,7 +156,11 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this._initShips = function(ships,type, sizeShip){
 		for (var i = 0; i < ships; i++) {
 			var direction = 'LANDSCAPE';
-			var identifier = type.concat(i+1);
+			var identifier = "";
+			if (i < 9 )
+				identifier = type + "0" +(i+1);
+			else
+				identifier = type.concat(i+1);
 			var directionShip = parseInt(Math.random() * 2);
 			if(directionShip == 1)
 				direction = 'PORTRAIT';

@@ -89,19 +89,15 @@ var LocationShipHandler =function(){
         if (indexCol >= this.dimensionField || indexRow >= this.dimensionField - 1){
             shipExist = true;
         }else
-        {
-            this.ships.forEach(function (object) {
-                for (var name in object) {
-                    if (name == 'locationShip') {
-                        var value = object[name];
-                        if (value.indexOf(position) >= 0) {
-                            shipExist = true;
-                        }
-                    }
-                }
-            });
+        {	
+			for(var i=0;i<this.ships.length;i++){				
+				var location = this.ships[i].locationShip;
+				if (location.indexOf(position) >= 0){
+					shipExist = true;
+					break;
+				}
+			}			
         }
-
         return shipExist;
     };
 };
