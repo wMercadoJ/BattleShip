@@ -31,7 +31,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 */
 	this._devConsole = [];
 
-	this.locationShipHandler = new LocationShipHandler();
+	this.locationShipHandler = new LocationShipHandler(this.dimension, this._ships);
 
 	/**
 	 * Draws the field in the html and in console
@@ -95,7 +95,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			var id = this._ships[i].id;
 			var location = this._ships[i].locationShip;
 			for(var k = 0; k < location.length; k++){				
-				var rowCoordinate = parseInt(this.locationShipHandler.globalRow.indexOf(location[k].slice(0,1)));
+				var rowCoordinate = parseInt(this.locationShipHandler.charCollectionRow.indexOf(location[k].slice(0,1)));
 				var colCoordinate = parseInt(location[k].slice(1,location[k].length))-1;				
 				this._devConsole[rowCoordinate][colCoordinate]= id;
 			}
@@ -110,7 +110,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 					for(var k = 0; k < value.length; k++){
 						console.log(typeof value[k].slice(0,1));
 						var locationShipHandler = new LocationShipHandler();
-						var rowCoordinate = locationShipHandler.globalRow.indexOf(value[k].slice(0,1));
+						var rowCoordinate = locationShipHandler.charCollectionRow.indexOf(value[k].slice(0,1));
 						var colCoordinate = parseInt(value[k].slice(1,value[k].length))-1;
 						this._devConsole[rowCoordinate][colCoordinate]= identifier;
 					}
@@ -137,6 +137,10 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 
 	};
 
+	/**
+	 * Function to initialize Ships using the number introduced in UI
+	 * @private
+	 */
 	this._initAllShips = function(){
 		if(this.nDestroyers>0){
 			this._initShips(this.nDestroyers,'D', 3);
@@ -149,29 +153,35 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		if(this.nTugBoats>0){
 			this._initShips(this.nTugBoats,'T', 1);
 		}
-		console.log(this._ships);
-
 	};
 
-	this._initShips = function(ships,type, sizeShip){
+	/**
+	 * Function to initialize ships for each model
+	 * @param {Integer} ships, Number of ships to be created by model
+	 * @param {String} typeShip, Char used as identified by model
+	 * @param {Integer} sizeShip, Size of the ships by model
+	 * @private
+	 */
+	this._initShips = function(ships, typeShip, sizeShip){
 		for (var i = 0; i < ships; i++) {
-			var direction = 'LANDSCAPE';
-			var identifier = "";
+			var directionShip = 'LANDSCAPE';
+			var identifierShip = "";
+
 			if (i < 9 )
-				identifier = type + "0" +(i+1);
+				identifierShip = typeShip + "0" +(i+1);
 			else
-				identifier = type.concat(i+1);
-			var directionShip = parseInt(Math.random() * 2);
+				identifierShip = typeShip.concat(i+1);
+
+			directionShip = parseInt(Math.random() * 2);
+
 			if(directionShip == 1)
-				direction = 'PORTRAIT';
+				directionShip = 'PORTRAIT';
 
-			var positionCoordinate  = this.locationShipHandler.getNewLocation(this.dimension, this._ships, direction, sizeShip);
+			var positionShip  = this.locationShipHandler.getNewLocation(directionShip, sizeShip);
 
-			if (positionCoordinate != 0) {
-
-				var ship = new Ship(identifier, positionCoordinate, direction, sizeShip);
-				this._ships.push(ship);
-				
+			if (positionShip != 0) {
+				var newShip = new Ship(identifierShip, positionShip, directionShip, sizeShip);
+				this._ships.push(newShip);
 			}else{
 				console.log("Unable to add more ships!");
 				break;
@@ -182,7 +192,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	};
 
 	/**
-	 * Receives the shot and verifies if it has hit, fail or detroyed a ship
+	 * Receives the shot and verifies if it has hit, fail or destroyed a ship
 	 * @param{string} location
 	 */
 	this.receivedShot = function(location){
