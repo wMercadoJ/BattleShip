@@ -54,6 +54,8 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			var row='<tr>\n';
 			var col='';
 			var background = '<img src="images\\background.png">';
+			var rMap = this._rowsMap.charAt(i-1);
+
 			for(var j=0;j<this.dimension;j++){
 				if(i==0 && j==0){
 					background = '';
@@ -69,7 +71,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 				}
 
 
-				col=col+'<td '+ 'id='+i+j+'>'+background+'</td>\n';
+				col=col+'<td '+ 'id='+rMap+j+'>'+background+'</td>\n';
 			}
 			row=row+col+'</tr>\n';
 			htmlMatrix = htmlMatrix + row;
@@ -100,32 +102,17 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 				this._devConsole[rowCoordinate][colCoordinate]= id;
 			}
 		}
-		/*
-		this._ships.forEach(function (ship) {
-			for (var name in ship) {
-				if (name == 'id')
-					var identifier = ship[name];
-				if (name == 'locationShip') {
-					var value = ship[name];
-					for(var k = 0; k < value.length; k++){
-						console.log(typeof value[k].slice(0,1));
-						var locationShipHandler = new LocationShipHandler();
-						var rowCoordinate = locationShipHandler.charCollectionRow.indexOf(value[k].slice(0,1));
-						var colCoordinate = parseInt(value[k].slice(1,value[k].length))-1;
-						this._devConsole[rowCoordinate][colCoordinate]= identifier;
-					}
-				}
-			}
-		});*/
-
-		
 		
 	};
 	/**
      * Draws the game in the console
 	 */
-	this._drawConsole = function(){
-		
+	this._drawConsole = function(location,message){
+
+		if(location){
+			this._devConsole[this._rowsMap.indexOf(location.charAt(0))][parseInt(location.charAt(1))-1] = message;
+		}
+
 		var text = "\n"
 		for (var i = 0; i < this.dimension -1; i++) {
 			for (var j = 0; j < this.dimension -1; j++) {
@@ -197,7 +184,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 */
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
-
+		var devMessage = '-F-';
 		if(ship){
 		
 			if(ship.isDestroyed()){
@@ -212,7 +199,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			else {
 				// writing in the table HIT, and the place that was hit
 				this.displayMessage(location,'HIT');
-				this._devConsole[parseInt(location.charAt(0))][parseInt(location.charAt(1))] = 'H';
+				devMessage = '-H-';
 				
 			}
 
@@ -220,7 +207,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		else{
 			//writing in the table Fail
 			this.displayMessage(location,'FAIL');
-			this._devConsole[parseInt(location.charAt(0))][parseInt(location.charAt(1))] = 'F';
+			
 			/*// Verifying if there is still empty spaces not hit
 			if(!this.isAllMissedShotHit()){
 				//The player loose because there is no empty spaces
@@ -228,13 +215,13 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			}*/
 
 		}
-		this._drawConsole();
+		this._drawConsole(location,devMessage);
 	};
 
 	
 	
 	this._isFleetDestroyed = function(){
-		return true;
+		return false;
 	};
 
 	this.getRowsMap = function(){
@@ -248,6 +235,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		for (var i = 0; i < nShips; i++) {
 			ship = this._ships[i];
 
+			//TODO still need to be implemented
 			if(ship.isHit()){
 				return ship;
 			}

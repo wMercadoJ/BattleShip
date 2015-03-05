@@ -32,8 +32,9 @@
     padding:5px;
 }
 
-.player{
-	border-spacing: 0px
+.playerTable{
+	border: 0px;
+    
 	
 }
 
@@ -43,4 +44,12 @@
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(90deg);
+}
+
+.HIT{
+    color:blue;
+}
+
+.FAIL{
+    color:red;
 }

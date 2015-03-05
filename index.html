@@ -56,25 +56,12 @@
 	</div>
 
 	<div id="section">
-		<table>
-			<tr>
-				<td>
-					<table id="player"></table>
-				</td>
-				<td>
-					<table id="developer"></table>
-				</td>
-			</tr>
-		</table>
-
+		<table id="player" class="playerTable"></table>
 		<table id='shootting'>
 			<tr>
 				<td> Enter the coordinates </td>
 				<td> <input type="text" id="location" required> </td>
-			</tr>
-			<tr>
 				<td> <input type="button" value="shoot" onClick="battleShip.shot(document.getElementById('location').value)"></td>
-			</tr>
 		</table>
 	</div>
 

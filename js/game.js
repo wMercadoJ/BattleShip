@@ -14,18 +14,19 @@ var Game = function(){
 
 	this.shot=function(location){
 		if(this.isValidShot(location)){
-			this.field.receivedShot(this.parseLocation(location));
+			this.field.receivedShot(location);
 		}
 	};
 
 	this.isValidShot = function(location){
-	    location.split('');
+	   /*location.split('');
 	    var row = location[0];
 	    var column = location[1];
 			console.log(row +' '+ column);
 	    console.log((row +'<'+ this.field.dimension +'&&'+ column +'<'+ this.field.dimension));
-			//return (row > 0 && column > 0) && (row < this.field.dimension && column < this.field.dimension);
-
+			return (row > 0 && column > 0) && (row < this.field.dimension && column < this.field.dimension);
+		*/
+		return true;
 	};
 
 	this.parseLocation = function(location){

@@ -16,11 +16,11 @@ var Ship = function(id, locationShip, direction, size) {
 
 
 	this.isDestroyed = function(){
-		return true;
+		return false;
 	};
 
 	this.isHit = function(){
-		return true;
+		return false;
 	};
 
 
