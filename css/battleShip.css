@@ -1,6 +1,43 @@
+<!--[if !IE 7]> <style type="text/css"> #wrap {display:table;height:100%} </style> <![endif]--> - See more at: http://www.thesmartbuzz.com/diseno/footer-siempre-abajo-html-y-css#codesyntax_2
 
-#body {
-    background-color: ghostwhite;
+* {
+margin: 0;
+padding: 0;
+}
+html, body {
+height: 100%;
+background-image: url("../images/battleship-bg.png");
+background-repeat: no-repeat;
+background-position: left top;
+}
+#wrap {
+min-height: 100%;
+background-color : transparent;
+}
+
+#main {
+overflow: auto;
+padding-bottom: 50px;
+text-align: center;
+}
+
+#footer {
+position: relative;
+margin-top: -50px; 
+height: 50px; 
+clear: both;
+background: #286af0;
+text-align: center;
+color: #FFFFFF;
+}
+
+/*Opera Fix*/
+body:before {
+content: "";
+height: 100%;
+float: left;
+width: 0;
+margin-top: -32767px;/* Efecto Negativo para OPERA*/
 }
 
 #header {
@@ -11,31 +48,42 @@
     height:100px;
     width:540px;
 }
+
 #nav {
     line-height:30px;
     background-color:#eeeeee;
-    height:180px;
+    
     width:280px;
     float:left;
     padding:5px;
+	min-height: 90%; 
+	height: auto
 }
+
 #section {
     width:600px;
     float:left;
     padding:10px;
 }
-#footer {
-    background-color:orangered;
-    color:white;
-    clear:both;
-    text-align:center;
-    padding:5px;
-}
 
-.playerTable{
-	border: 0px;
-    
+.clearfix:after {content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+table#player {	
+    border: 1px single darkgray;
+	border-collapse:collapse;
 	
+}
+table#player td {
+    border: thin solid darkgray;
 }
 
 .PORTRAIT {
@@ -53,3 +101,4 @@
 .FAIL{
     color:red;
 }
+
