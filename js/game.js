@@ -19,11 +19,12 @@ var Game = function(){
 	};
 
 	this.isValidShot = function(location){
-	    location.split('');
-	    var row = location[0];
-	    var column = location[1];
-			console.log(row +' '+ column);
-	    console.log((row +'<'+ this.field.dimension +'&&'+ column +'<'+ this.field.dimension));
+    location.split('');
+    var row = location[0];
+    var column = location[1];
+    //console.log(row +' '+ column);
+    //console.log((row +'<'+ this.field.dimension +'&&'+ column +'<'+ this.field.dimension));
+    this.field.receivedShot(location);
 			//return (row > 0 && column > 0) && (row < this.field.dimension && column < this.field.dimension);
 
 	};

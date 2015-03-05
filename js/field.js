@@ -81,8 +81,6 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 * Initiates the dev console that will be displayed in the console
 	 */
 	this._initDevConsole = function(){
-		
-
 		for (var i = 0; i < this.dimension -1; i++) {
 			var drawColumn = [];
 			for (var j = 0; j < this.dimension -1; j++) {
@@ -117,24 +115,19 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 				}
 			}
 		});*/
-
-		
-		
 	};
 	/**
      * Draws the game in the console
 	 */
 	this._drawConsole = function(){
-		
-		var text = "\n"
-		for (var i = 0; i < this.dimension -1; i++) {
+		var text = "\n";
+    for (var i = 0; i < this.dimension -1; i++) {
 			for (var j = 0; j < this.dimension -1; j++) {
 				text = text + this._devConsole[i][j] + " ";
 			}
 			text = text + "\n";
 		}
 		console.log(text);
-
 	};
 
 	/**
@@ -198,37 +191,88 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
 
-		if(ship){
-		
-			if(ship.isDestroyed()){
-				//writing destroyed and then displaying the ship
-				this._displayShipDestroyed(ship);
+/* need review*/
+    var ships = this._ships;
+    var locationAsUpperCase = location.toLocaleUpperCase();
+    var flag = false;
+    var flagHits = false;
+    var shipIndex;
+    for (var shipsIndex in ships){
+      for (var locationsIndex in ships[shipsIndex].locationShip){
+        if(ships[shipsIndex].locationShip[locationsIndex] == locationAsUpperCase) {
+          ships[shipsIndex].hits[locationsIndex] = ships[shipsIndex].locationShip[locationsIndex];
+          for (var hitsIndex in ships[shipsIndex].hits){
+            if (ships[shipsIndex].hits[hitsIndex] == '') {
+              flagHits = true;
+              break;
+            }
+          }
+          if (flagHits){
+            console.log('DAMAGED');
+            this._devConsole[this._rowsMap.indexOf(location.toLocaleUpperCase().charAt(0))][parseInt(location.charAt(1))-1] = '-H-'
+            ships[shipsIndex].status = 'DAMAGED';
+            shipIndex = shipsIndex;
+            flag = true;
+            //console.log(ships[shipsIndex]);
+            break;
+          } else {
+            console.log('KILLED');
+            this._devConsole[this._rowsMap.indexOf(location.toLocaleUpperCase().charAt(0))][parseInt(location.charAt(1))-1] = '-H-'
+            ships[shipsIndex].status = 'KILLED';
+            shipIndex = shipsIndex;
+            flag = true;
+            //console.log(ships[shipsIndex]);
+            for (var x in ships){
+              if (ships[x].status != 'KILLED') {
+                break;
+              } else {
+                if (x == ships.length-1)
+                  console.log('All boats killed');
+              }
+            }
+            break;
+          }
+          flag = true;
+          break;
+        }
+        if(flag)
+          break;
+      }
+    }
+    if (!flag){
+      this._devConsole[this._rowsMap.indexOf(location.toLocaleUpperCase().charAt(0))][parseInt(location.charAt(1))-1] = '-F-'
+      console.log('FAIL');
+    }
 
-				if(this._isFleetDestroyed()){
-					//Showing a message that all the fleet have been destroyed
-					//this.displayFleetDestroyed();
-				}
-			}
-			else {
-				// writing in the table HIT, and the place that was hit
-				this.displayMessage(location,'HIT');
-				this._devConsole[parseInt(location.charAt(0))][parseInt(location.charAt(1))] = 'H';
-				
-			}
+    //console.log(this._devConsole);
+    //ship = ships[shipIndex];
 
-		}
-		else{
-			//writing in the table Fail
-			this.displayMessage(location,'FAIL');
-			this._devConsole[parseInt(location.charAt(0))][parseInt(location.charAt(1))] = 'F';
-			/*// Verifying if there is still empty spaces not hit
-			if(!this.isAllMissedShotHit()){
-				//The player loose because there is no empty spaces
-				// TODO
-			}*/
-
-		}
-		this._drawConsole();
+		//if(ship){
+		//	if(ship.isDestroyed()){
+		//		//writing destroyed and then displaying the ship
+		//		this._displayShipDestroyed(ship);
+		//		if(this._isFleetDestroyed()){
+		//			//Showing a message that all the fleet have been destroyed
+		//			//this.displayFleetDestroyed();
+		//		}
+		//	}
+		//	else {
+		//		// writing in the table HIT, and the place that was hit
+		//		this.displayMessage(location,'HIT');
+		//		this._devConsole[this._rowsMap.indexOf(location.toLocaleUpperCase().charAt(0))][parseInt(location.charAt(1))] = 'H';
+		//	}
+		//}
+		//else{
+		//	//writing in the table Fail
+		//	this.displayMessage(location,'FAIL');
+     // this._devConsole[this._rowsMap.indexOf(location.toLocaleUpperCase().charAt(0))][parseInt(location.charAt(1))] = 'F';
+		//	/*// Verifying if there is still empty spaces not hit
+		//	if(!this.isAllMissedShotHit()){
+		//		//The player loose because there is no empty spaces
+		//		// TODO
+		//	}*/
+		//}
+    this._drawConsole();
 	};
 
 	
@@ -304,7 +348,4 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		}
 		
 	};
-
-
-
 };
