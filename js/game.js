@@ -19,14 +19,14 @@ var Game = function(){
 	};
 
 	this.isValidShot = function(location){
-	   /*location.split('');
+	   location.split('');
 	    var row = location[0];
 	    var column = location[1];
 			console.log(row +' '+ column);
 	    console.log((row +'<'+ this.field.dimension +'&&'+ column +'<'+ this.field.dimension));
 			return (row > 0 && column > 0) && (row < this.field.dimension && column < this.field.dimension);
-		*/
-		return true;
+		
+		//return true;
 	};
 
 	this.parseLocation = function(location){
