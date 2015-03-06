@@ -14,7 +14,6 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.nShips = nShips;
 	this.nTugBoats = nTugBoats;
 
-
 	/**
 	 * Array of ships
      * @type {array} 
@@ -52,31 +51,23 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		var htmlMatrix = '';
 		for(var i=0;i<this.dimension;i++){
 			var row='<tr>\n';
-			var col='';
-			var background = '<img src="images\\background.png">';
+			var col='';			
 			var rMap = this._rowsMap.charAt(i-1);
 
 			for(var j=0;j<this.dimension;j++){
-				if(i==0 && j==0){
-					background = '';
+				if(i==0 && j==0){	
+					col=col+'<td '+ 'id='+rMap+j+'></td>\n';			
 				}
-				else if(i==0){
-					background = j;
+				else if(i==0 && j >0){
+					console.log("entre"+j);
+					col=col+'<td '+ 'id='+rMap+j+'>'+j+'</td>\n';
 				}
 				else if (j==0){
-					background = this._rowsMap.charAt(i-1);
+					col=col+'<td '+ 'id='+rMap+j+'>'+this._rowsMap.charAt(i-1)+'</td>\n';
 				}
 				else{
-					background = '<img src="images\\background.png">';	
+					col=col+'<td '+ 'id='+rMap+j+' class="empty"></td>\n';
 				}
-
-				if(i > 0 && j > 0){
-					col=col+'<td '+ 'id='+rMap+j+' class="empty">'+background+'</td>\n';
-				}
-				else{
-					col=col+'<td '+ 'id='+rMap+j+'>'+background+'</td>\n';
-				}
-
 			}
 			row=row+col+'</tr>\n';
 			htmlMatrix = htmlMatrix + row;
@@ -270,30 +261,39 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		var shipDirection = ship.direction;
 		var shipSize = ship.locationShip.length;
 		var cell = null;
+		var typeShipCss= '';
 
 		//verifying if it is a tugboat
 		if(shipID.charAt(0)=='T'){
-			cell = document.getElementById(shipLocation[0]);	
-			cell.innerHTML = '<img src="images\\tugBoat.png">';
-			cell.setAttribute('class',shipDirection);	
+			typeShipCss = 'tugboat-'+shipDirection;
+			cell = document.getElementById(shipLocation[0]);				
+			cell.setAttribute('class',typeShipCss);	
+			
+		} else if(shipID.charAt(0)=='S'){
+			typeShipCss = 'ship-back-'+shipDirection;
+			cell = document.getElementById(shipLocation[0]);			
+			cell.setAttribute('class',typeShipCss);
+			
+			typeShipCss = 'ship-front-'+shipDirection;
+			cell = document.getElementById(shipLocation[1]);			
+			cell.setAttribute('class',typeShipCss);
 		}
 		else{
-		
 			// the front
-			cell = document.getElementById(shipLocation[0]);
-			cell.innerHTML = '<img src="images\\shipFront.png">';
-			cell.setAttribute('class',shipDirection);
+			typeShipCss = 'des-back-'+shipDirection;
+			cell = document.getElementById(shipLocation[0]);			
+			cell.setAttribute('class',typeShipCss);
 			// the middle in case the ship it is a detroyer
 			for(var i=1;i<shipLocation.length-1;i++){
-				cell = document.getElementById(shipLocation[i]);
-				cell.innerHTML = '<img src="images\\shipMiddle.png">';
-				cell.setAttribute('class',shipDirection);
+				typeShipCss = 'des-middle-'+shipDirection;
+				cell = document.getElementById(shipLocation[i]);				
+				cell.setAttribute('class',typeShipCss);
 			}
 		
 			//the ship back
-			cell = document.getElementById(shipLocation[shipLocation.length-1]);
-			cell.innerHTML = '<img src="images\\shipBack.png">';
-			cell.setAttribute('class',shipDirection);
+			typeShipCss = 'des-front-'+shipDirection;
+			cell = document.getElementById(shipLocation[shipLocation.length-1]);			
+			cell.setAttribute('class',typeShipCss);
 		}
 		
 	};

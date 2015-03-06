@@ -62,52 +62,105 @@ table#player {
 }
 table#player td {
     border: thin solid darkgray;
+	text-align: center;
+	height: 20px;
+	width: 20px;
 }
 
 table#player td.empty {
     background-image: url(../images/water.png);
+	height: 64px;
+	width: 64px;
 }
 
-table#player td.fail {
+table#player td.FAIL {
     background-image: url(../images/miss.png);
 }
 
-table#player td.hit {
+table#player td.HIT {
      background-image: url(../images/hit.png);
  }
 
-table#player td#A1 {
+table#player td.des-back-LANDSCAPE {
     background-image: url(../images/destroyerBack.png);
 }
-table#player td#A2 {
+table#player td.des-middle-LANDSCAPE {
     background-image: url(../images/destroyerMiddle.png);
 }
-table#player td#A3 {
+table#player td.des-front-LANDSCAPE  {
     background-image: url(../images/destroyerFront.png);
 }
-table#player td#C1 {
-    background-image: url(../images/shipBack.png);
-}
-table#player td#C2 {
-    background-image: url(../images/shipFront.png);
-}
-table#player td#D1 {
-    background-image: url(../images/tugboat.png);
-}
 
-.PORTRAIT {
-    -webkit-transform: rotate(90deg);
+table#player td.des-back-PORTRAIT {
+    background-image: url(../images/destroyerBack.png);
+	-webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(90deg);
+	
+}
+table#player td.des-middle-PORTRAIT {
+    background-image: url(../images/destroyerMiddle.png);
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+	
+}
+table#player td.des-front-PORTRAIT  {
+    background-image: url(../images/destroyerFront.png);
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+	
 }
 
-.HIT{
-    color:blue;
+
+table#player td.ship-back-LANDSCAPE {
+    background-image: url(../images/shipBack.png);
+}
+table#player td.ship-front-LANDSCAPE {
+    background-image: url(../images/shipFront.png);
 }
 
-.FAIL{
-    color:red;
+table#player td.ship-back-PORTRAIT {
+    background-image: url(../images/shipBack.png);
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+	
 }
+table#player td.ship-front-PORTRAIT {
+    background-image: url(../images/shipFront.png);
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+	background-image: center;
+	
+}
+
+
+table#player td.tugboat-LANDSCAPE {
+    background-image: url(../images/tugboat.png);
+	
+}
+
+table#player td.tugboat-PORTRAIT {
+    background-image: url(../images/tugboat.png);
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+	
+}
+
 
