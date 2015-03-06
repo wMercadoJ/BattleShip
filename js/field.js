@@ -286,6 +286,24 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		
 	};
 
+	/**
+	 * Resets the field object
+	 */
+	this.reset = function(){
+		this.dimension = 0;
+		this.nDestroyers = 0;
+		this.nShips = 0;
+		this.nTugBoats = 0;
+
+		this._ships = [];
+		this._devConsole = [];
+
+		this._drawHTML();
+		this._drawConsole();
+
+
+	};
+
 
 
 };

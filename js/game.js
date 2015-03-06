@@ -38,4 +38,6 @@ var Game = function(){
 		var column = parseInt(location.charAt(1));
 		return row+''+column;
 	};
+
+	
 };
