@@ -58,8 +58,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 				if(i==0 && j==0){	
 					col=col+'<td '+ 'id='+rMap+j+'></td>\n';			
 				}
-				else if(i==0 && j >0){
-					console.log("entre"+j);
+				else if(i==0 && j >0){					
 					col=col+'<td '+ 'id='+rMap+j+'>'+j+'</td>\n';
 				}
 				else if (j==0){
@@ -155,9 +154,9 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			else
 				identifierShip = typeShip.concat(i+1);
 
-			directionShip = parseInt(Math.random() * 2);
+			getDirection = parseInt(Math.random() * 2);
 
-			if(directionShip == 1)
+			if(getDirection == 1)
 				directionShip = 'PORTRAIT';
 
 			var positionShip  = this.locationShipHandler.getNewLocation(directionShip, sizeShip);
@@ -235,8 +234,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 * @param {string} message to be displayed HIT or FAIL
 	 */
 	this.displayMessage = function(location,message){
-		var cell = document.getElementById(location);
-		cell.innerHTML = message;
+		var cell = document.getElementById(location);		
 		cell.setAttribute('class',message);
 	}
 
@@ -249,6 +247,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 		var shipID = ship.id;
 		var shipLocation = ship.locationShip;
 		var shipDirection = ship.direction;
+		
 		var shipSize = ship.locationShip.length;
 		var cell = null;
 		var typeShipCss= '';
