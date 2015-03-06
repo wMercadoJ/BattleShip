@@ -179,50 +179,77 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 */
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
-    console.log(ship);
-    var devMessage = '-F-';
-    if(ship){
-      if (ship.isDestroyed(ship)){
-        this._displayShipDestroyed(ship);
-        devMessage = '-H-';
-      }
-      if(ship.isHit(ship)){
-        this.displayMessage(location,'HIT');
-        devMessage = '-H-';
-      }
-    } else {
-      this.displayMessage(location,'FAIL');
-    }
+	    console.log(ship);
+	    var devMessage = '-F-';
+	    if(ship){
+	      if (ship.isDestroyed(ship)){
+	        this._displayShipDestroyed(ship);
+	        devMessage = '-H-';
+	      }
+	      if(ship.isHit(ship)){
+	        this.displayMessage(location,'HIT');
+	        devMessage = '-H-';
+	      }
 
-    this._drawConsole(location,devMessage);
-  };
+	      if(this._isFleetDestroyed()){
+	      	document.getElementById("gameOver").innerHTML = 'Game Over All The Ships Have Been Destroyed';
+	      }
 
-  this._isFleetDestroyed = function(){
-		return false;
+
+
+	    } else {
+	      this.displayMessage(location,'FAIL');
+	    }
+
+	    this._drawConsole(location,devMessage);
+  	};
+
+  	/**
+  	 * Verifies if all the ships have been destroyed
+  	 * @return {boolean} true
+  	 */
+	this._isFleetDestroyed = function(){
+		var numShips = this._ships.length;
+		for (var i = 0; i < numShips; i++){
+			var ship = this._ships[i];
+			if(!ship.isDestroyed(ship)){
+				return false;
+			}
+		}
+		return true;
 	};
 
+
+	/**
+	 * Gets the rowsMap array
+	 * @return {String} _rowsMap
+	 */
 	this.getRowsMap = function(){
 		return this._rowsMap;
 	};
 
+	/**
+	 * Returns a ship in case there is a ship in the location specified
+	 * @return {Object} ship or null
+	 */
 	this._getShip = function(location){
 		var ships = this._ships;
 		var ship = null;
-    for (var shipsIndex in ships) {
-      for (var locationsIndex in ships[shipsIndex].locationShip) {
-        if (ships[shipsIndex].locationShip[locationsIndex] == location) {
-          ship = ships[shipsIndex]
-          ship.hits[locationsIndex] = ship.locationShip[locationsIndex];
-          for (var h in ship.hits){
-            if (ship.hits[h] != ''){
-              ship.status = 'Killed';
-            } else {
-              ship.status = 'Damaged';
-            }
-          }
-          break;
-        }
-      }
+	    for (var shipsIndex in ships) {
+	      for (var locationsIndex in ships[shipsIndex].locationShip) {
+	        if (ships[shipsIndex].locationShip[locationsIndex] == location) {
+	          ship = ships[shipsIndex]
+	          ship.hits[locationsIndex] = ship.locationShip[locationsIndex];
+	          for (var h in ship.hits){
+	            if (ship.hits[h] != ''){
+	              ship.status = 'Killed';
+	            } else {
+	              ship.status = 'Damaged';
+	            }
+	          }
+	          break;
+	        }
+	      }
     }
     return ship;
 	};
@@ -287,7 +314,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	};
 
 	/**
-	 * Resets the field object
+	 * Resets the field and its properties
 	 */
 	this.reset = function(){
 		this.dimension = 0;

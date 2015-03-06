@@ -22,6 +22,7 @@
 				document.getElementById('nTugboats').value = 0;
 				document.getElementById('location').value = '';
 				document.getElementById('start').disabled = true;
+				document.getElementById('gameOver').disabled = '';
 
 				resetGame();
 			};
@@ -49,6 +50,8 @@
 			 * This starts the game
 			 */
 			function start(){
+				document.getElementById('gameOver').disabled = '';
+				
 				startGame(document.getElementById('mDimension').value,
 						  document.getElementById('nDestroyers').value,
 						  document.getElementById('nShips').value,
@@ -97,9 +100,8 @@
 		</div>
 
 		<div id="section">
+			<p id="gameOver"></p>
 			<table id="player" class="playerTable"></table>
-			<table id='shootting'>				
-			</table>
 		</div>
 		</div>
 		<div id="footer">
