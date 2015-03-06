@@ -70,8 +70,13 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 					background = '<img src="images\\background.png">';	
 				}
 
+				if(i > 0 && j > 0){
+					col=col+'<td '+ 'id='+rMap+j+' class="empty">'+background+'</td>\n';
+				}
+				else{
+					col=col+'<td '+ 'id='+rMap+j+'>'+background+'</td>\n';
+				}
 
-				col=col+'<td '+ 'id='+rMap+j+'>'+background+'</td>\n';
 			}
 			row=row+col+'</tr>\n';
 			htmlMatrix = htmlMatrix + row;
@@ -185,9 +190,9 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
 		var devMessage = '-F-';
-		if(ship){
+		if(true){
 		
-			if(ship.isDestroyed()){
+			if(true){
 				//writing destroyed and then displaying the ship
 				this._displayShipDestroyed(ship);
 
