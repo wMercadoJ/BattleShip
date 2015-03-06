@@ -253,7 +253,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 
 		//verifying if it is a tugboat
 		if(shipID.charAt(0)=='T'){
-			typeShipCss = 'tugboat-'+shipDirection;
+			typeShipCss = 'tugboat';
 			cell = document.getElementById(shipLocation[0]);				
 			cell.setAttribute('class',typeShipCss);	
 			
