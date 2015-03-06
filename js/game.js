@@ -14,7 +14,7 @@ var Game = function(){
 	this.shot = function(location){
     location = location.toLocaleUpperCase();
 		if(this.isValidShot(location)){
-      console.log(this.field.receivedShot(location));
+      //console.log(this.field.receivedShot(location));
 			this.field.receivedShot(location);
 		} else {
       console.log('----> Shot Data incorrect <----');
