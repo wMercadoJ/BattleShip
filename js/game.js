@@ -27,7 +27,7 @@ var Game = function(){
 	    var column = location[1];
       var charCollectionRow = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       if(charCollectionRow.indexOf(row) >= 0){
-        return (column > 0)
+        return (column <= this.field.dimension)
       } else {
         return false;
       }

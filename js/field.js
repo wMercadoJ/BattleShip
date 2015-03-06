@@ -109,7 +109,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 			this._devConsole[this._rowsMap.indexOf(location.charAt(0))][parseInt(location.charAt(1))-1] = message;
 		}
 
-		var text = "\n"
+		var text = "\n";
 		for (var i = 0; i < this.dimension -1; i++) {
 			for (var j = 0; j < this.dimension -1; j++) {
 				text = text + this._devConsole[i][j] + " ";
@@ -180,63 +180,25 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 */
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
-		var devMessage = '-F-';
-    var ships = this._ships;
-    var locationAsUpperCase = location.toLocaleUpperCase();
-    var flag = false;
-    var flagHits = false;
-    var shipIndex;
-    for (var shipsIndex in ships){
-      for (var locationsIndex in ships[shipsIndex].locationShip){
-        if(ships[shipsIndex].locationShip[locationsIndex] == locationAsUpperCase) {
-          ships[shipsIndex].hits[locationsIndex] = ships[shipsIndex].locationShip[locationsIndex];
-          for (var hitsIndex in ships[shipsIndex].hits){
-            if (ships[shipsIndex].hits[hitsIndex] == '') {
-              flagHits = true;
-              break;
-            }
-          }
-          if (flagHits){
-            this.displayMessage(location,'HIT');
-            devMessage = '-H-';
-            ships[shipsIndex].status = 'HIT';
-            shipIndex = shipsIndex;
-            flag = true;
-            break;
-          } else {
-            this._displayShipDestroyed(ships[shipsIndex]);
-            if(this._isFleetDestroyed()){
-              //Showing a message that all the fleet have been destroyed
-              //this.displayFleetDestroyed();
-            }
-            ships[shipsIndex].status = 'KILLED';
-            shipIndex = shipsIndex;
-            flag = true;
-            for (var x in ships){
-              if (ships[x].status != 'KILLED') {
-                break;
-              } else {
-                if (x == ships.length-1)
-                  console.log('All boats killed');
-              }
-            }
-            break;
-          }
-          flag = true;
-          break;
-        }
-        if(flag)
-          break;
+    console.log(ship);
+    var devMessage = '-F-';
+    if(ship){
+      if (ship.isDestroyed(ship)){
+        this._displayShipDestroyed(ship);
+        devMessage = '-H-';
       }
-    }
-    if (!flag){
+      if(ship.isHit(ship)){
+        this.displayMessage(location,'HIT');
+        devMessage = '-H-';
+      }
+    } else {
       this.displayMessage(location,'FAIL');
     }
 
-	this._drawConsole(location,devMessage);
-	};
+    this._drawConsole(location,devMessage);
+  };
 
-	this._isFleetDestroyed = function(){
+  this._isFleetDestroyed = function(){
 		return false;
 	};
 
@@ -245,16 +207,26 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	};
 
 	this._getShip = function(location){
-		var nShips = this._ships.length;
+		var ships = this._ships;
 		var ship = null;
-		for (var i = 0; i < nShips; i++) {
-			ship = this._ships[i];
-			//TODO still need to be implemented
-			if(ship.isHit()){
-				return ship;
-			}
-		}
-		return ship;
+    for (var shipsIndex in ships) {
+      for (var locationsIndex in ships[shipsIndex].locationShip) {
+        if (ships[shipsIndex].locationShip[locationsIndex] == location) {
+          ship = ships[shipsIndex]
+          ship.hits[locationsIndex] = ship.locationShip[locationsIndex];
+          for (var h in ship.hits){
+            if (ship.hits[h] != ''){
+              console.log('hhh -> ', ship.hits[h] );
+              ship.status = 'Killed';
+            } else {
+              ship.status = 'Damaged';
+            }
+          }
+          break;
+        }
+      }
+    }
+    return ship;
 	};
 
 	/**
