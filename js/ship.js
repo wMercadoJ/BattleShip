@@ -9,16 +9,13 @@
 var Ship = function(id, locationShip, direction, size) {
     this.id = id;
     this.locationShip = locationShip;
-    
     this.hits = [];
     for (var h in locationShip){
       this.hits.push('')
     }
-    
     this.direction = direction
     this.size = size;
     this.status = "ALIVE";
-
 
 	this.isDestroyed = function(){
 		return false;

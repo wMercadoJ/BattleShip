@@ -190,41 +190,61 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
 		var devMessage = '-F-';
-		if(true){
-		
-			if(true){
-				//writing destroyed and then displaying the ship
-				this._displayShipDestroyed(ship);
+    var ships = this._ships;
+    var locationAsUpperCase = location.toLocaleUpperCase();
+    var flag = false;
+    var flagHits = false;
+    var shipIndex;
+    for (var shipsIndex in ships){
+      for (var locationsIndex in ships[shipsIndex].locationShip){
+        if(ships[shipsIndex].locationShip[locationsIndex] == locationAsUpperCase) {
+          ships[shipsIndex].hits[locationsIndex] = ships[shipsIndex].locationShip[locationsIndex];
+          for (var hitsIndex in ships[shipsIndex].hits){
+            if (ships[shipsIndex].hits[hitsIndex] == '') {
+              flagHits = true;
+              break;
+            }
+          }
+          if (flagHits){
+            this.displayMessage(location,'HIT');
+            devMessage = '-H-';
+            ships[shipsIndex].status = 'HIT';
+            shipIndex = shipsIndex;
+            flag = true;
+            break;
+          } else {
+            this._displayShipDestroyed(ships[shipsIndex]);
+            if(this._isFleetDestroyed()){
+              //Showing a message that all the fleet have been destroyed
+              //this.displayFleetDestroyed();
+            }
+            ships[shipsIndex].status = 'KILLED';
+            shipIndex = shipsIndex;
+            flag = true;
+            for (var x in ships){
+              if (ships[x].status != 'KILLED') {
+                break;
+              } else {
+                if (x == ships.length-1)
+                  console.log('All boats killed');
+              }
+            }
+            break;
+          }
+          flag = true;
+          break;
+        }
+        if(flag)
+          break;
+      }
+    }
+    if (!flag){
+      this.displayMessage(location,'FAIL');
+    }
 
-				if(this._isFleetDestroyed()){
-					//Showing a message that all the fleet have been destroyed
-					//this.displayFleetDestroyed();
-				}
-			}
-			else {
-				// writing in the table HIT, and the place that was hit
-				this.displayMessage(location,'HIT');
-				devMessage = '-H-';
-				
-			}
-
-		}
-		else{
-			//writing in the table Fail
-			this.displayMessage(location,'FAIL');
-			
-			/*// Verifying if there is still empty spaces not hit
-			if(!this.isAllMissedShotHit()){
-				//The player loose because there is no empty spaces
-				// TODO
-			}*/
-
-		}
-		this._drawConsole(location,devMessage);
+	this._drawConsole(location,devMessage);
 	};
 
-	
-	
 	this._isFleetDestroyed = function(){
 		return false;
 	};
@@ -236,10 +256,8 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	this._getShip = function(location){
 		var nShips = this._ships.length;
 		var ship = null;
-
 		for (var i = 0; i < nShips; i++) {
 			ship = this._ships[i];
-
 			//TODO still need to be implemented
 			if(ship.isHit()){
 				return ship;
