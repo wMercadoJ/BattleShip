@@ -92,33 +92,14 @@ table#player td.des-front-LANDSCAPE  {
 }
 
 table#player td.des-back-PORTRAIT {
-    background-image: url(../images/destroyerBack.png);
-	-webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-	
+    background-image: url(../images/destroyerBackP.png);
 }
 table#player td.des-middle-PORTRAIT {
-    background-image: url(../images/destroyerMiddle.png);
-	-webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-	
+    background-image: url(../images/destroyerMiddleP.png);
 }
 table#player td.des-front-PORTRAIT  {
-    background-image: url(../images/destroyerFront.png);
-	-webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-	
+    background-image: url(../images/destroyerFrontP.png);
 }
-
 
 table#player td.ship-back-LANDSCAPE {
     background-image: url(../images/shipBack.png);
@@ -128,39 +109,14 @@ table#player td.ship-front-LANDSCAPE {
 }
 
 table#player td.ship-back-PORTRAIT {
-    background-image: url(../images/shipBack.png);
-	-webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-	
+    background-image: url(../images/shipBackP.png);
 }
 table#player td.ship-front-PORTRAIT {
-    background-image: url(../images/shipFront.png);
-	-webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-	background-image: center;
-	
+    background-image: url(../images/shipFrontP.png);
 }
 
-
-table#player td.tugboat-LANDSCAPE {
-    background-image: url(../images/tugboat.png);
-	
-}
-
-table#player td.tugboat-PORTRAIT {
-    background-image: url(../images/tugboat.png);
-	-webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-	
+table#player td.tugboat {
+    background-image: url(../images/tugBoat.png);
 }
 
 
