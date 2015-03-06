@@ -215,7 +215,6 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
           ship.hits[locationsIndex] = ship.locationShip[locationsIndex];
           for (var h in ship.hits){
             if (ship.hits[h] != ''){
-              console.log('hhh -> ', ship.hits[h] );
               ship.status = 'Killed';
             } else {
               ship.status = 'Damaged';
