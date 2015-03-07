@@ -42,7 +42,7 @@ var LocationShipHandler =function(dimension, ships){
      * @param {Integer} columnPosition, Number of the column to be evaluated
      * @param {String} directionShip,  Direction of the ship to be evaluated(LANDSCAPE or PORTRAIT)
      * @param {Integer} shipSize, Size of the ship
-     * @returns {Array} Array with all free coordinates
+     * @return {Array} Array with all free coordinates
      */
     this.evaluateColision = function (rowPosition, columnPosition, directionShip, shipSize){
         var indexRow = this.charCollectionRow.indexOf(rowPosition);

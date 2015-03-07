@@ -179,7 +179,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	 */
 	this.receivedShot = function(location){
 		var ship = this._getShip(location);
-	    console.log(ship);
+	    
 	    var devMessage = '-F-';
 	    if(ship){
 	      if (ship.isDestroyed(ship)){
