@@ -34,7 +34,7 @@ var Game = function(){
 		if(this.isValidShot(location)){
       		this.field.receivedShot(location);
 		} else {
-      console.log('----> Shot Data incorrect <----');
+      console.log('----> Shot Invalid <----');
     }
 	};
 
@@ -43,27 +43,27 @@ var Game = function(){
 	 * @param {string} location of the shot
 	 */
 	this.isValidShot = function(location){
+		var charCollectionRow = this.field.getRowsMap();
 
-	    location.split('');
-	    var row = location[0];
-	    var column = location[1];
-     	var charCollectionRow = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	  	if(charCollectionRow.indexOf(row) >= 0){
-	    	return (column <= this.field.dimension)
-	  	} else {
-	    	return false;
+		if(location.length<2){
+			return false;
+		}
+
+	    var row = location.charAt(0);
+	    var column = location.substring(1,location.length);
+
+	    //verifies if the row is char
+	  	if(isNaN(row) || charCollectionRow.indexOf(row) >= 0){
+	  		//verifies if the column is char
+	  		if(isNaN(column)){
+	  			return false;
+	  		}
+	  		else if(parseInt(column)>=0 && parseInt(column)<this.field.dimension){
+	  			return true;
+	  		}
+
 	  	}
+	  	return false;
+	  	
 	};
-
-	/**
-	 * Parses the location
-	 * @param{string} location of the shot
-	 */
-	this.parseLocation = function(location){
-		var row = parseInt(this.field.getRowsMap().indexOf(location.charAt(0)))+1;
-		var column = parseInt(location.charAt(1));
-		return row+''+column;
-	};
-
-	
 }; 
