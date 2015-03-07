@@ -40,7 +40,7 @@
 				var tugBoats = document.getElementById('nTugboats').value;
 				var startButton = document.getElementById('start');
 
-				if(dimension>=3 && (destroyers>0 || ships > 0 || tugBoats > 0) ){
+				if((dimension>=3 && dimension<=26) && (destroyers>0 || ships > 0 || tugBoats > 0) ){
 			 		startButton.disabled = false;
 			 	}
 			 	else{
@@ -87,7 +87,7 @@
 			<table id='setting'>
 				<tr>
 					<td> Enter the matrix dimension </td>
-					<td> <input type="number" id="mDimension" min="3" value="3" style="width: 35px" required onClick=enableStart() onkeyup=enableStart()> </td>
+					<td> <input type="number" id="mDimension" min="3" value="3" max="26" style="width: 35px" required onClick=enableStart() onkeyup=enableStart()> </td>
 				</tr>
 				<tr>
 					<td> Enter the number of destroyers </td>
