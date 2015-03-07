@@ -25,7 +25,8 @@
 				document.getElementById('location').disabled = true;
 				document.getElementById('shootBtn').disabled = true;
 				document.getElementById('start').disabled = true;
-				document.getElementById('gameOver').disabled = '';
+				document.getElementById('gameOver').style.visibility = "hidden";
+
 
 				resetGame();
 			};
@@ -53,7 +54,7 @@
 			 * This starts the game
 			 */
 			function start(){
-				document.getElementById('gameOver').disabled = '';
+				document.getElementById('gameOver').style.visibility = "hidden";
 
 				document.getElementById('location').disabled = false;
 				document.getElementById('shootBtn').disabled = false;

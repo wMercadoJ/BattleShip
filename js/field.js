@@ -193,6 +193,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 
 	      if(this._isFleetDestroyed()){
 	      	document.getElementById("gameOver").innerHTML = 'Game Over: All The Ships Have Been Destroyed';
+			  document.getElementById('gameOver').style.visibility = "visible";
 			  document.getElementById("location").disabled=true;
 			  document.getElementById("shootBtn").disabled= true;
 
