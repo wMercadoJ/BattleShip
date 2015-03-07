@@ -165,7 +165,7 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 				var newShip = new Ship(identifierShip, positionShip, directionShip, sizeShip);
 				this._ships.push(newShip);
 			}else{
-				console.log("Unable to add more ships!");
+				console.log("Unable to add more ships of this type!");
 				break;
 			}
 		}
@@ -192,7 +192,10 @@ var Field = function(dimension,nDestroyers,nShips,nTugBoats){
 	      }
 
 	      if(this._isFleetDestroyed()){
-	      	document.getElementById("gameOver").innerHTML = 'Game Over All The Ships Have Been Destroyed';
+	      	document.getElementById("gameOver").innerHTML = 'Game Over: All The Ships Have Been Destroyed';
+			  document.getElementById("location").disabled=true;
+			  document.getElementById("shootBtn").disabled= true;
+
 	      }
 
 

@@ -16,11 +16,14 @@
 			 * This reset the values in the game 
 			 */
 			function reset(){
+				document.getElementById("mDimension").focus();
 				document.getElementById('mDimension').value = 3;
 				document.getElementById('nDestroyers').value = 0;
 				document.getElementById('nShips').value = 0;
 				document.getElementById('nTugboats').value = 0;
 				document.getElementById('location').value = '';
+				document.getElementById('location').disabled = true;
+				document.getElementById('shootBtn').disabled = true;
 				document.getElementById('start').disabled = true;
 				document.getElementById('gameOver').disabled = '';
 
@@ -37,7 +40,7 @@
 				var tugBoats = document.getElementById('nTugboats').value;
 				var startButton = document.getElementById('start');
 
-			 	if(dimension>=3 && (destroyers>0 || ships > 0 || tugBoats > 0) ){
+				if(dimension>=3 && (destroyers>0 || ships > 0 || tugBoats > 0) ){
 			 		startButton.disabled = false;
 			 	}
 			 	else{
@@ -51,12 +54,26 @@
 			 */
 			function start(){
 				document.getElementById('gameOver').disabled = '';
-				
+
+				document.getElementById('location').disabled = false;
+				document.getElementById('shootBtn').disabled = false;
+
+				document.getElementById("location").focus();
 				startGame(document.getElementById('mDimension').value,
 						  document.getElementById('nDestroyers').value,
 						  document.getElementById('nShips').value,
 						  document.getElementById('nTugboats').value);
 			};
+
+			/**
+			 * Put the focus in Shoot field
+			 */
+			function shootGame(){
+				document.getElementById("location").focus();
+				battleShip.shot(document.getElementById('location').value);
+
+			}
+
 		</script>
 	</head>
 	<body onload=reset()>
@@ -88,13 +105,20 @@
 					<td> <input type="button" id="reset" value="Reset" onClick="reset()"> </td>
 					<td> <input type="button" id="start" value="Start" onClick="start()" disabled=true> </td>
 				</tr>
+				<hr>
+
+			</table>
+			<br>
+			<hr>
+
+			<table id='shootTable'>
 				<tr>
 					<td> Enter the coordinates </td>
-					<td> <input type="text" id="location" style="width: 35px" required> </td>					
+					<td> <input type="text" id="location" style="width: 35px" required onkeydown="if (event.keyCode == 13) document.getElementById('shootBtn').click()"> </td>
 				</tr>
 				<tr>
-					<td></td>				
-					<td> <input type="button" value="Shoot" onClick="battleShip.shot(document.getElementById('location').value)"></td>
+					<td></td>
+					<td> <input type="button" value="Shoot" id="shootBtn" onClick="shootGame()"></td>
 				</tr>
 			</table>
 		</div>

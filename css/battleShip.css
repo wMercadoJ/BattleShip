@@ -75,48 +75,95 @@ table#player td.empty {
 
 table#player td.FAIL {
     background-image: url(../images/miss.png);
+    height: 64px;
+    width: 64px;
 }
 
 table#player td.HIT {
      background-image: url(../images/hit.png);
+    height: 64px;
+    width: 64px;
  }
 
 table#player td.des-back-LANDSCAPE {
     background-image: url(../images/destroyerBack.png);
+    height: 64px;
+    width: 64px;
 }
 table#player td.des-middle-LANDSCAPE {
     background-image: url(../images/destroyerMiddle.png);
+    height: 64px;
+    width: 64px;
 }
 table#player td.des-front-LANDSCAPE  {
     background-image: url(../images/destroyerFront.png);
+    height: 64px;
+    width: 64px;
 }
 
 table#player td.des-back-PORTRAIT {
     background-image: url(../images/destroyerBackP.png);
+    height: 64px;
+    width: 64px;
 }
 table#player td.des-middle-PORTRAIT {
     background-image: url(../images/destroyerMiddleP.png);
+    height: 64px;
+    width: 64px;
 }
 table#player td.des-front-PORTRAIT  {
     background-image: url(../images/destroyerFrontP.png);
+    height: 64px;
+    width: 64px;
 }
 
 table#player td.ship-back-LANDSCAPE {
     background-image: url(../images/shipBack.png);
+    height: 64px;
+    width: 64px;
 }
 table#player td.ship-front-LANDSCAPE {
     background-image: url(../images/shipFront.png);
+    height: 64px;
+    width: 64px;
 }
 
 table#player td.ship-back-PORTRAIT {
     background-image: url(../images/shipBackP.png);
+    height: 64px;
+    width: 64px;
 }
 table#player td.ship-front-PORTRAIT {
     background-image: url(../images/shipFrontP.png);
+    height: 64px;
+    width: 64px;
 }
 
 table#player td.tugboat {
     background-image: url(../images/tugBoat.png);
+    height: 64px;
+    width: 64px;
+}
+
+table#setting {
+    width: 93%;
+}
+
+table#shootTable {
+    width: 100%;
+}
+
+p#gameOver {
+    font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+    font-weight: normal;
+    font-size: 1.2em;
+    letter-spacing: .2em;
+    line-height: 1.1em;
+    margin:0px;
+    text-align: center;
+    text-transform: uppercase;
+    color: crimson;
+
 }
 
 
